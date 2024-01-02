@@ -1,0 +1,120 @@
+.wrapper {
+    position: relative;
+    
+}
+.header {
+    height: 120px;
+    background: linear-gradient(-180deg,#f53d2d,#f63);
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+h1 {
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+}
+.body {
+    display: flex;
+    width: 100vw;
+    justify-content: space-around;
+}
+.criterion {
+    width: 25%;
+    table {
+        margin-top: 25px;
+    }
+}
+
+.phieu-xuat {
+    @media print {
+        page-break-before: always;
+        width: 209mm;
+        height: 290mm;
+        margin: 0;
+    }
+}
+.print-btn {
+    margin-top: 8px;
+}
+.label {
+    font-weight: 600;
+    width: 100px;
+}
+.input {
+    width: 300px;
+    border: 1px solid black;
+}
+.footer {
+    height: 100px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+.action {
+    display: flex;
+    height: 100%;
+    width: 20%;
+    justify-content: space-between;
+    align-items: center;
+    button {
+        height: 40px;
+        min-width: 120px;
+        margin: 0;
+    }
+}
+ //Modal
+ /* Modal Content */
+.modal-content {
+    width: 400px;
+    max-width: 100%;
+    background-color: #f8f9fa; /* Màu nền xám */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal Header */
+.modal-header {
+    background-color: #007bff; /* Màu xanh */
+    color: #fff; /* Màu chữ trắng */
+    border-radius: 10px 10px 0 0;
+}
+
+/* Modal Body */
+.modal-body {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Modal Footer */
+.modal-footer {
+    background-color: #007bff; /* Màu xanh */
+    border-radius: 0 0 10px 10px;
+}
+
+/* Button Style */
+.btn-primary {
+    background-color: #28a745; /* Màu xanh lá cây */
+    border: none;
+    color: #fff; /* Màu chữ trắng */
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #218838; /* Màu xanh lá cây tối hơn khi di chuột qua */
+}
+
+/* Close Button Style */
+.close {
+    color: #fff; /* Màu chữ trắng */
+    font-size: 24px;
+}

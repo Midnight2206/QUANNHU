@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form class="container" method="POST" action="/signup">
+      <div class="header">
+        <img class="logo" src="{logo}" />
+      </div>
+      <div class="body">
+        <h1 class="content">Đăng nhập</h1>
+        <div class="signup-input">
+          <label for="username">Tên đăng nhập</label>
+          <input
+            name="username"
+            type="text"
+            id="username"
+            placeholder="Vui lòng nhập tên đăng nhập hoặc email"
+          />
+        </div>
+        <div class="signup-input">
+          <label for="password">Mật khẩu</label>
+          <input name="password" type="password" id="password" />
+        </div>
+        <div class="signup-input">
+          <label for="confirm-password">Nhập lại mật khẩu</label>
+          <input type="password" id="confirm-password" name="confirm-password"/>
+        </div>
+      </div>
+      <div class="footer">
+        <div>
+          <button type="submit">Đăng ký</button>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

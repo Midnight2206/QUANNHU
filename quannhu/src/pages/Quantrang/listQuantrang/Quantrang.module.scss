@@ -1,0 +1,134 @@
+.wrapper {
+    width: 100%;
+    
+}
+.header {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding-bottom: 12px;
+    font-size: 1.6rem;
+    height: 80px;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    .choose-year {
+        width: 200px;
+        .choose-year-lable {
+            margin-right: 8px;
+            font-size: inherit;
+        }
+        .choose-year-select {
+            width: 100px;
+            text-align: center;
+        }
+    }
+    .action {
+        display: flex;
+        align-items: center;
+        width: 200px;
+    }
+    
+    .more-btn {
+        font-size: 2rem;
+        margin-left: 28px;
+        padding: 4px 8px;
+        background-color: transparent;
+        cursor: pointer;
+    }
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+    
+    max-height: calc(100vh - 150px);
+    
+}
+h3 {
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 0;
+    padding-bottom: 5px;
+    font-size: 24px;
+}
+
+.table {
+    padding: 16px 0;
+    margin: 0 auto;
+    font-size: 1.6rem;
+    max-height: calc(100vh - 150px);
+    thead {
+        position: sticky;
+        z-index: 10;
+        top: 0;
+        background-color: white;
+    }
+    th.text-justify {
+        text-align: center;
+        writing-mode: vertical-lr;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 30px;
+    }
+    th {
+        vertical-align: middle;
+        text-align: center;
+        height: 220px;
+        &:nth-child(1) {
+            width: 40px;
+        }
+        &:nth-child(2) {
+            width: 200px;
+        }
+        &:nth-child(3) {
+            width: 40px;
+            display: none;
+        }
+        &:nth-child(4) {
+            width: 40px;
+        }
+        &:nth-child(5) {
+            
+            width: 60px;
+        }
+        &:nth-child(6) {
+            width: 50px;
+            display: none;
+        }
+        &:nth-child(7) {
+            width: 40px;
+        }
+        &:nth-child(8) {
+            width: 40px;
+        }
+        &:nth-child(9) {
+            width: 40px;
+        }
+        &:nth-child(10) {
+            width: 40px;
+        }
+        &:nth-child(11) {
+            width: 40px;
+        }
+    }
+    td {
+        vertical-align: middle;
+        text-align: center;
+        &:nth-child(3) {
+            display: none;
+        }
+        &:nth-child(6) {
+            display: none;
+        }
+    }
+    body {
+        tr {
+            cursor: pointer;
+        }
+    }
+    
+}

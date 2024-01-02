@@ -1,0 +1,121 @@
+.wrapper {
+
+}
+h1 {
+    text-align: center;
+    width: 500px;
+    margin: 16px 8px;
+    font-weight: inherit;
+    font-size: inherit;
+}
+.title {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 20px;
+}
+.choose-year {
+    display: flex;
+    label {
+        font-size: inherit;
+        margin-right: 16px;
+    }
+    select {
+        font-size: inherit;
+        font-weight: inherit;
+        width: 100px;
+        text-align: center;
+    }
+    
+}
+.option {
+    display: flex;
+    padding-left: 120px;
+    width: 800px;
+    display: flex;
+    justify-content: space-around;
+    button, a {
+        height: 40px;
+        min-width: 120px;
+    }
+}
+.header {
+    display: flex;
+    border-bottom: 1px solid black;
+}
+.colunm {
+    width: 50vw;
+    padding: 16px;
+}
+.colunm.colunm {
+    border-left: 1px solid black;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.input-info {
+    border: 1px solid rgba(22, 24, 35, 0.4);
+    background-color: rgba(22, 24, 35, 0.03);
+    padding-left: 8px;
+    margin-left: 8px;
+    width: 240px;
+    &:focus {
+        border: 1px solid rgba(22, 24, 35, 0.6);
+        background-color: rgba(22, 24, 35, 0.06);
+
+    }
+}
+.label-info {
+    font-weight: 600;
+    width: 120px;
+}
+.info-element {
+    margin: 12px 24px;
+    width: 40%;
+}
+.body{
+    width: calc(100vw - 300px);
+    margin: 24px auto auto auto;
+}
+.table {
+    padding: 16px 0;
+    margin: 0 auto;
+    font-size: 1.6rem;
+    max-height: calc(100vh - 150px);
+    thead {
+        position: sticky;
+        z-index: 10;
+        top: 0;
+        background-color: white;
+    }
+    th.text-justify {
+        text-align: center;
+        writing-mode: vertical-lr;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 40px;
+    }
+    
+    th {
+        vertical-align: middle;
+        text-align: center;
+        height: 220px;
+    }
+    td {
+        vertical-align: middle;
+        text-align: center;
+        .criterion {
+            background-color: yellowgreen !important
+        }
+    }
+    tbody {
+        tr {
+            cursor: pointer;
+            height: 30px;
+        }
+    }
+    
+}

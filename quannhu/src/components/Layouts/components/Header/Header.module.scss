@@ -1,0 +1,19 @@
+.wrapper {
+    height: 60px;
+    box-shadow: 0 1px 1px rgb( 0 0 0 / 12%);
+}
+.container {
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    width: 1150px;
+    justify-content: space-between;
+}
+.logo {
+    display: block;
+    width: 45px;
+}
+.search {
+    width: 700px;
+}

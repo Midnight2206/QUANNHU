@@ -1,0 +1,27 @@
+{
+  "name": "quannhuserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node src/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/node": "^7.22.19",
+    "@babel/preset-env": "^7.23.3",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "1.20.2",
+    "dotenv": "16.3.1",
+    "ejs": "3.1.9",
+    "express": "4.18.2",
+    "mongoose": "^8.0.3",
+    "mongoose-sequence": "^6.0.0",
+    "mysql2": "^3.6.3",
+    "nodemon": "^3.0.1",
+    "unorm": "^1.6.0"
+  }
+}
