@@ -164,6 +164,16 @@ function Individual() {
                             placeholder="PH CCD"
                         />
                     </div>
+                    <div className={cx('info-element')}>
+                        <label className={cx('label-info')}>Sổ QTCN số: </label>
+                        <input
+                            defaultValue={individualData[selectedYear] ? individualData[selectedYear]['Sổ QTCN số'] : null}
+                            name="Sổ QTCN số"
+                            onChange={handleOnchangeInput}
+                            className={cx('input-info')}
+                            placeholder="Sổ QTCN số"
+                        />
+                    </div>
                 </div>
                 <div className={cx('colunm')}>
                     <div className={cx('info-element')}>
