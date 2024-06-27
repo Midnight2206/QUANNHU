@@ -72,7 +72,7 @@ function Search({year}) {
                         <PopperWrapper>
                             <h4 className={cx('search-title')}>Kết quả tìm kiếm</h4>
                             {searchResult.map((result, i) => (
-                                <SearchItem key={i} data={result} />
+                                <SearchItem key={i} data={result} year={year} />
                             ))}
                         </PopperWrapper>
                     </div>

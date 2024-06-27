@@ -8,7 +8,7 @@ const criterionDB = require('./configs/mongoDB/mongoose/criterions')
 criterionDB.mgconnect()
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '1000mb' }))
 
 app.use(function (req, res, next) {
 

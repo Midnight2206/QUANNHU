@@ -8,6 +8,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Modal from 'react-bootstrap/Modal';
 
+
 import httpRequest from '~/utils/httpRequest';
 import PhieuXuat from '~/components/MauIn/PhieuXuat/PhieuXuat';
 import Button from '~/components/Button';
@@ -15,16 +16,30 @@ import { QuantrangContext } from '../quantrangContext';
 import style from './dispensation.module.scss';
 const cx = classNames.bind(style);
 function Dispensation() {
+    const location = useLocation();
     const currentDay = new Date()
     const convertDay = (date) => (`${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`)
     const [isNotData, setIsNotData] = useState(true)
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const data = location.state.data
     const [showErrorModal, setShowErrorModal] = useState(false);
+    const [fieldDisplayMapping, setFieldDisplayMapping] = useState([])
     const [selectedDate, setSelectedDate] = useState(currentDay)
     const [selectedDateConvert, setSelectedDateConvert] = useState(convertDay(currentDay));
     const [num, setNum] = useState('')
-    
-    console.log(convertDay(currentDay))
+    const [dataInputCriterion, setDataInputCriterion] = useState({});
+    const componentRef = useRef();
+    const [state] = useContext(QuantrangContext);
+    const queryParams = new URLSearchParams(location.search);
+    const year = queryParams.get('year');
+    const [criterion, setCriterion] = useState({});
+    const CCD = data.info.PHCDD;
+    const [info, setInfo] = useState({
+        receiver: data.info.fullName,
+        unit: data.info.unit,
+        criterionOf: data.info.fullName,
+        ID: data.info.ID
+    });
     const handleDateChange = (date) => {
         setSelectedDateConvert(convertDay(date));
         setSelectedDate(date)
@@ -44,20 +59,6 @@ function Dispensation() {
         setShowErrorModal(false);
         navigate('/quantrang');
     };
-    const [dataInputCriterion, setDataInputCriterion] = useState({});
-    const componentRef = useRef();
-    const [state] = useContext(QuantrangContext);
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const year = queryParams.get('year');
-    const [criterion, setCriterion] = useState({});
-    const CCD = state[year]['PH CCĐ'];
-    const [info, setInfo] = useState({
-        'Người nhận': state[year]['Họ và tên'],
-        'Đơn vị': state[year]['Đơn vị'],
-        criterionOf: state[year]['Họ và tên'],
-        ID
-    });
     const handleChangeInfo = (name, value) => {
         setInfo((prev) => ({
             ...prev,
@@ -91,7 +92,8 @@ function Dispensation() {
             const res = await httpRequest.get('quantrang/dispensation', {
                 params: { CCD, year },
             });
-            setCriterion(res.data);
+            setCriterion(res.data.data);
+            setFieldDisplayMapping(res.data.fieldDisplayMapping);
         } catch (error) {
             console.log(error);
         }
@@ -115,6 +117,7 @@ function Dispensation() {
     };
     const handleSave = () => {
         postData();
+        setIsNotData(true)
     };
 
     useEffect(() => {
@@ -130,19 +133,19 @@ function Dispensation() {
                     <div style={{ marginBottom: '16px' }}>
                         <label className={cx('label')}>Người nhận:</label>
                         <input
-                            name="Người nhận"
+                            name="receiver"
                             className={cx('input')}
                             onChange={(e) => handleChangeInfo(e.target.name, e.target.value)}
-                            defaultValue={state[year]['Họ và tên']}
+                            defaultValue={data.info.fullName}
                         />
                     </div>
                     <div style={{ marginBottom: '16px' }}>
                         <label className={cx('label')}>Địa chỉ:</label>
                         <input
-                            name="Đơn vị"
+                            name="unit"
                             className={cx('input')}
                             onChange={(e) => handleChangeInfo(e.target.name, e.target.value)}
-                            defaultValue={state[year]['Đơn vị']}
+                            defaultValue={data.info.unit}
                         />
                     </div>
                     <div>
@@ -158,17 +161,19 @@ function Dispensation() {
                     <Table bordered>
                         <thead>
                             <tr>
-                                <th>Tên mặt hàng</th>
-                                <th>Tiêu chuẩn</th>
-                                <th>Cấp phát</th>
+                                <th style={{textAlign: 'center', verticalAlign: 'middle'}}>Tên mặt hàng</th>
+                                <th style={{textAlign: 'center', verticalAlign: 'middle'}}>Tiêu chuẩn</th>
+                                <th style={{textAlign: 'center', verticalAlign: 'middle'}}>Đã nhận</th>
+                                <th style={{textAlign: 'center', verticalAlign: 'middle'}}>Cấp phát</th>
                             </tr>
                         </thead>
                         <tbody>
                             {Object.entries(criterion).map(([key, value]) => (
                                 <tr key={key}>
-                                    <td>{key}</td>
-                                    <td>{value}</td>
-                                    <td>
+                                    <td>{fieldDisplayMapping[key]}</td>
+                                    <td style={{textAlign: 'center', verticalAlign: 'middle'}}>{value}</td>
+                                    <td style={{textAlign: 'center', verticalAlign: 'middle'}}>{data.data[key]}</td>
+                                    <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
                                         <input
                                             name={key}
                                             value={dataInputCriterion[key] || ''}
@@ -183,7 +188,7 @@ function Dispensation() {
                 </div>
                 <div>
                     <div className={cx('phieu-xuat')} ref={componentRef}>
-                        <PhieuXuat num={num} info={info} data={dataInputCriterion} date={selectedDate} />
+                        <PhieuXuat fieldDisplayMapping={fieldDisplayMapping} num={num} info={info} data={dataInputCriterion} date={selectedDate} dispensationYear={year} />
                     </div>
                 </div>
             </div>

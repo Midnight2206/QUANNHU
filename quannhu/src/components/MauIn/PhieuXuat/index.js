@@ -1,1 +1,1 @@
-export * from './PhieuXuat'
+export {default} from './PhieuXuat'

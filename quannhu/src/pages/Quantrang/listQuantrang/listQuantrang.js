@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical} from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 
 import Search from '~/components/Search/Search';
 import style from './Quantrang.module.scss';
@@ -20,7 +20,7 @@ const MENU_ITEMS = [
                 {
                     type: 'volatility',
                     title: 'Quân số tăng',
-                    to: '/quantrang/increase'
+                    to: '/quantrang/increase',
                 },
                 {
                     type: 'volatility',
@@ -32,6 +32,14 @@ const MENU_ITEMS = [
     {
         title: 'Tiêu chuẩn quân trang',
         to: '/quantrang/criterion',
+    },
+    {
+        title: 'Import Danh sách cấp phát',
+        to: '/quantrang/importlist',
+    },
+    {
+        title: 'Quân trang dùng chung',
+        to: '/quantrang/shared',
     },
 ];
 
@@ -45,10 +53,13 @@ function Quantrang() {
     });
 
     const [years, setYears] = useState([]);
-    const [head, setHead] = useState([]);
-    const [militaries, setMilitaries] = useState([]);
-    const [dispensations, setDispensations] = useState([])
-    const [tableDatas, setTableDatas] = useState([])
+    const [infoKeys, setInfoKeys] = useState([]);
+    const [sizeKeys, setSizeKeys] = useState([]);
+    const [dataKeys, setDataKeys] = useState([]);
+    const [listDatas, setListDatas] = useState([]);
+    const [infoHeaders, setInfoHeaders] = useState([])
+    const [sizeHeaders, setSizeHeaders] = useState([])
+    const [dataHeaders, setDataHeaders] = useState([])
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -69,30 +80,26 @@ function Quantrang() {
 
     const fetchData = async (selectedYear) => {
         try {
-            const res = await httpRequest.get('/quantrang', {params: {year: selectedYear}})
-            const fetchedMilitaries = res.data.militaries;
-            const fetchedDispensations = res.data.dispensations;
-            setMilitaries(res.data.militaries);
-            setDispensations(res.data.dispensations)
-            setHead(res.data.columnNames);
-            setYears(res.data.tableNames);
-            fetchedMilitaries.map((military, i) => {
-                const [fetchedDispensation] = fetchedDispensations[i]
-                setTableDatas(prev => ([...prev, {...military, ...fetchedDispensation}]))
-            })
+            const res = await httpRequest.get('/quantrang', { params: { year: selectedYear } });
+            setInfoKeys(res.data.infoKeys);
+            setSizeKeys(res.data.sizeKeys);
+            setDataKeys(res.data.dataKeys);
+            setInfoHeaders(res.data.infoHeaders);
+            setSizeHeaders(res.data.sizeHeaders);
+            setDataHeaders(res.data.dataHeaders)
+            setYears(res.data.years);
+            setListDatas(res.data.listDatas);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
-        
     };
     const handleYearChange = (event) => {
         const newYear = event.target.value;
         setSelectedYear(newYear);
     };
     const handleOnClickRow = (id) => {
-        navigate(`/quantrang/individual/${id}`);
+        navigate(`/quantrang/individual/${id}`, { state: { year: selectedYear } });
     };
-   
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -108,8 +115,8 @@ function Quantrang() {
                         onChange={handleYearChange}
                     >
                         {years.map((year, i) => (
-                            <option value={year.Tables_in_listquantrang} key={i}>
-                                {year.Tables_in_listquantrang}
+                            <option value={year} key={i}>
+                                {year}
                             </option>
                         ))}
                     </select>
@@ -131,20 +138,42 @@ function Quantrang() {
                 <Table hover bordered responsive className={cx('table')}>
                     <thead>
                         <tr>
-                            <th>#</th>
-                            {head.map((item, index) => (
-                                <th className={cx(index > 9 && 'text-justify')} key={index}>
-                                    {item}
+                            <th className={cx('info')}>#</th>
+                            {infoHeaders.map((infoHeader) => (
+                                <th className={cx('info')} key={infoHeader}>
+                                    {infoHeader}
+                                </th>
+                            ))}
+                            {sizeHeaders.map((sizeHeader) => (
+                                <th className={cx('size')} key={sizeHeader}>
+                                    {sizeHeader}
+                                </th>
+                            ))}
+                            {dataHeaders.map((dataHeader) => (
+                                <th className={cx('data')} key={dataHeader}>
+                                    {dataHeader}
                                 </th>
                             ))}
                         </tr>
                     </thead>
                     <tbody>
-                        {tableDatas.map((tableData, i) => (
-                            <tr onClick={() => handleOnClickRow(tableData.ID)} key={i}>
-                                <td>{i + 1}</td>
-                                {head.map((h, index) => (
-                                    <td key={index}>{tableData[h] || null}</td>
+                        {listDatas.map((listData, i) => (
+                            <tr onClick={() => handleOnClickRow(listData.info.ID)} key={listData._id}>
+                                <td className={cx('info')}>{i + 1}</td>
+                                {infoKeys.map((infoKey) => (
+                                    <td className={cx('info')} key={infoKey}>
+                                        {listData.info[infoKey]}
+                                    </td>
+                                ))}
+                                {sizeKeys.map((sizeKey) => (
+                                    <td className={cx('size')} key={sizeKey}>
+                                        {listData.size[sizeKey]}
+                                    </td>
+                                ))}
+                                {dataKeys.map((dataKey) => (
+                                    <td className={cx('data')} key={dataKey}>
+                                        {listData.data[dataKey]}
+                                    </td>
                                 ))}
                             </tr>
                         ))}

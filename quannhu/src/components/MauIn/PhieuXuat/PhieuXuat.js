@@ -2,12 +2,11 @@ import classNames from "classnames/bind";
 import { Table } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 import style from './PhieuXuat.module.scss'
 
 const cx = classNames.bind(style)
 
-function PhieuXuat({num, info, data, date}) {
+function PhieuXuat({num, info, data, date, dispensationYear, fieldDisplayMapping}) {
     let day, month, year
     if(date) {
         day = date.getDate()
@@ -34,10 +33,10 @@ function PhieuXuat({num, info, data, date}) {
                         {/* Phần thông tin người nhận */}
                         <div className={cx("invoice-recipient-info")}>
                             <div className={cx('line-dup')}>
-                                <p className={cx('line-left')}>Người nhận: {info["Người nhận"]}</p>
-                                <p className={cx('line-right')}>Địa chỉ: {info["Đơn vị"]}</p>
+                                <p className={cx('line-left')}>Người nhận: {info.receiver}</p>
+                                <p className={cx('line-right')}>Địa chỉ: {info.unit}</p>
                             </div>
-                            <p>Lý do: Cấp quân trang tiêu chuẩn năm 2023 cho đ/c {info.criterionOf}</p>
+                            <p>Lý do: Cấp quân trang tiêu chuẩn năm {dispensationYear} cho đ/c {info.criterionOf}</p>
                             <div className={cx('line-dup')}>
                                 <p className={cx('line-left')}>Nhận tại kho: Quân trang</p>
                                 <p className={cx('line-right')}>Địa điểm: Tiểu đoàn KTHCSB</p>
@@ -68,7 +67,7 @@ function PhieuXuat({num, info, data, date}) {
                             {Object.entries(data).map(([key, value], index) => {
                                 return <tr key={index}>
                                     <td>{index + 1}</td>
-                                    <td className={cx('left-text')}>{key}</td>
+                                    <td className={cx('left-text')}>{fieldDisplayMapping[key]}</td>
                                     <td></td>
                                     <td>{value}</td>
                                     <td>{value}</td>
@@ -98,7 +97,7 @@ function PhieuXuat({num, info, data, date}) {
                                 <br/>
                                 <br/>
                                 <br/>
-                                {info["Người nhận"]}
+                                {info.receiver}
                             </p>
                             <p><b>Trợ lý quân nhu</b>
                                 <br/>

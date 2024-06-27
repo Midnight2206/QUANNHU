@@ -1,0 +1,125 @@
+.invoice {
+    @media print {
+        page-break-before: always;
+        border: none;
+        margin: 20mm 15mm 20mm 30mm;
+    }
+    border: 1px solid #ddd;
+    height: 100vh;
+    overflow-y: auto;
+    .invoice-header {
+        margin-bottom: 8px;
+        .invoice-name {
+            width: 100%;
+            text-align: center;
+        }
+    }
+    .invoice-title {
+        display: flex;
+        text-align: center;
+        margin-bottom: 16px;
+        .top-para {
+            margin-bottom: 0;
+        }
+        .left-title {
+            width: 180px;
+            .underline {
+                margin: -10px auto 0;
+                width: 50%; // Chiều dài bằng 1/2 dòng chữ
+                border: none; // Bỏ viền mặc định của <hr>
+                border-top: 2px solid black; // Đặt viền trên màu đen với độ dày 2px
+              }
+        }
+        
+        .right-title {
+            flex: 1;
+            .underline {
+                margin: -10px auto 0;
+                width: 200px; // Chiều dài bằng 1/2 dòng chữ
+                border: none; // Bỏ viền mặc định của <hr>
+                border-top: 2px solid black; // Đặt viền trên màu đen với độ dày 2px
+              }
+        }
+    }
+    .invoice-recipient-info {
+        .line-dup {
+            display: flex;
+            .line-left {
+                flex: 3;
+            }
+            .line-right {
+                flex: 2;
+            }
+        }
+    }
+    .invoice-table {
+        th, tr, td {
+            border-color: black;
+        }
+        td {
+            vertical-align: middle;
+            text-align: center;
+            
+        }
+        .left-text {
+            text-align: left;
+        }
+        thead {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .special-col {
+            border-width: var(--bs-border-width) !important
+        }
+    }
+    .invoice-footer {
+        margin-top: 24px;
+    }
+    .invoice-signature {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        font-weight: 600;
+    }
+}
+// Invoice print
+// @media print {
+//     body {
+//         font-family: 'Times New Roman', serif;
+//         margin: 0;
+//         padding: 0;
+//     }
+
+//     .invoice {
+//         width: 210mm;
+//         height: 297mm;
+//         margin: 20mm 15mm 20mm 35mm;
+//         page-break-before: always;
+//         table {
+//             width: 100%;
+//             border-collapse: collapse;
+//         }
+
+//         th,
+//         td {
+//             border: 1px solid black;
+//             padding: 8px;
+//             text-align: left;
+//         }
+//     }
+
+//     .invoice-header,
+//     .invoice-table,
+//     .invoice-footer {
+//         margin-bottom: 10mm;
+//     }
+
+//     .invoice-recipient-info {
+//         /* Điều chỉnh lề và giao diện thông tin người nhận */
+//         margin-bottom: 10mm;
+//     }
+
+//     .invoice-signature {
+//         /* Điều chỉnh lề và giao diện chữ ký */
+//     }
+// }

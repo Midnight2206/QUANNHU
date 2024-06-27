@@ -10,9 +10,7 @@ import GlobalStyles from '~/components/GlobalStyles'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <GlobalStyles>
-    <React.StrictMode>
       <QuantrangProvider><App /></QuantrangProvider>
-    </React.StrictMode>
   </GlobalStyles>
 );
 

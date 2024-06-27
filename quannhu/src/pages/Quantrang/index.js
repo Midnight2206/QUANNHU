@@ -4,6 +4,11 @@ import Individual from "./Individual";
 import Criterion from "./Criterion/Criterion.js";
 import Dispensation from "./dispensation";
 import IncreaseMilitaries from "./increaseMilitaries/increaseMilitaries.js";
+import importList from "./importList/"
+import SharedMilitaryEquipment from "./sharedMilitaryEquipment"
+import DecreaseMilitaries from "./decreaseMilitaries/decreaseMilitaries.js";
+import DecreaseList from "./decreaseMilitaries/decreaseList.js";
+import Test from "./Test.js";
 
 const QuanT = {
     Quantrang,
@@ -11,7 +16,12 @@ const QuanT = {
     Individual,
     Criterion,
     Dispensation,
-    IncreaseMilitaries
+    IncreaseMilitaries,
+    importList,
+    SharedMilitaryEquipment,
+    DecreaseMilitaries,
+    DecreaseList,
+    Test
 }
 export default QuanT
  

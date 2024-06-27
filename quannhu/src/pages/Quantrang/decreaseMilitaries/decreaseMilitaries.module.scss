@@ -1,0 +1,205 @@
+:root {
+    --search-btn-width: 52px;
+    --search-height: 46px;
+    --header-spacer: 9px;
+}
+// DecreaseMilitaries
+h1 {
+    text-align: center;
+    width: 100%;
+    margin: 16px 8px;
+    font-size: 25px;
+    font-weight: 680;
+
+}
+.title {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 20px;
+    border-bottom: 1px solid black;
+}
+.choose-year {
+    display: flex;
+    label {
+        font-size: inherit;
+        margin-right: 16px;
+    }
+    select {
+        font-size: inherit;
+        font-weight: inherit;
+        width: 100px;
+        text-align: center;
+    }
+    
+}
+.option {
+    display: flex;
+    padding-left: 120px;
+    width: 800px;
+    display: flex;
+    justify-content: space-around;
+    button, a {
+        height: 40px;
+        min-width: 120px;
+    }
+}
+.header {
+    display: flex;
+    border-bottom: 1px solid black;
+}
+.colunm {
+    width: 33vw;
+    padding: 16px;
+}
+.colunm.colunm {
+    border-left: 1px solid black;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.input-info {
+    border: 1px solid rgba(22, 24, 35, 0.4);
+    background-color: rgba(22, 24, 35, 0.03);
+    padding-left: 8px;
+    margin-left: 8px;
+    width: 200px;
+    &:focus {
+        border: 1px solid rgba(22, 24, 35, 0.6);
+        background-color: rgba(22, 24, 35, 0.06);
+
+    }
+}
+.input-disabled {
+    background-color: #e9ecef;
+  cursor: not-allowed;
+  pointer-events: none;
+  color: #6c757d; 
+}
+.label-info {
+    font-weight: 600;
+    width: 160px;
+}
+.info-element {
+    margin: 12px 24px;
+    width: 40%;
+}
+.action {
+    width: 450px;
+    margin: 4px auto;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+//Decrease list
+.filter {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 8px;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: rgba(22, 24, 35, 0.03);
+    label {
+        font-weight: 600;
+        margin-right: 8px;
+    }
+    select {
+        width: 100px;
+        text-align: center;
+    }
+}
+.header-list {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.title-list {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding: 8px;
+    background-color: rgba(22, 24, 35, 0.03);
+    a {
+        margin-right: 35px;
+    }
+}
+.body-list {
+    margin-top: 160px;
+}
+ // Search
+ .search {
+    position: relative;
+    display: flex;
+    width: 500px;
+    height: var(--search-height);
+    border-radius: 92px;
+    background-color: rgba(22, 24, 35, 0.06);
+    border: 1.5px solid transparent;
+    &:hover {
+        border-color: rgba(22, 24, 35, 0.2);
+    }
+    &:hover {
+        .search-btn {
+            color: rgba(22, 24, 35, 0.6);
+            background-color: rgba(22, 24, 35, 0.08);
+        }
+    }
+
+    input {
+        text-align: left;
+        padding: 0 16px;
+        font-size: 16px;
+        width: 431px;
+        background-color: transparent;
+        caret-color: red;
+        border-bottom-left-radius: 92px;
+        border-top-left-radius: 92px;
+    }
+    input:not(:placeholder-shown) {
+        color: rgba(22, 24, 35, 0.6);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        border: 1.5px solid rgba(22, 24, 35, 0.12);
+        right: var(--search-btn-width);
+        top: var(--header-spacer);
+        bottom: var(--header-spacer);
+    }
+}
+.clear,
+.loading {
+    background-color: transparent;
+    color: rgba(22, 24, 35, 0.3);
+    position: absolute;
+    font-size: 16px;
+    right: calc(var(--search-btn-width) + 16px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+.search-btn {
+    width: var(--search-btn-width);
+    height: 100%;
+    font-size: 18px;
+    background-color: rgba(22, 24, 35, 0.03);
+    color: rgba(22, 24, 35, 0.3);
+    border-top-right-radius: 92px;
+    border-bottom-right-radius: 92px;
+    position: absolute;
+    right: 0;
+    &:hover {
+        cursor: pointer;
+    }
+    &:active {
+        background-color: rgba(22, 24, 35, 0.12);
+    }
+}

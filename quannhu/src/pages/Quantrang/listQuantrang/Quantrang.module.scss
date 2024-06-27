@@ -67,12 +67,22 @@ h3 {
         top: 0;
         background-color: white;
     }
-    th.text-justify {
+    th.data {
         text-align: center;
         writing-mode: vertical-lr;
         white-space: nowrap;
         overflow: hidden;
         width: 30px;
+    }
+    th.size {
+        width: 30px;
+        background-color: rgb(94, 109, 67);
+    }
+    th.info {
+        background-color: rgb(155, 63, 63);
+    }
+    th.data {
+        background-color: rgb(86, 140, 184);
     }
     th {
         vertical-align: middle;
@@ -115,9 +125,19 @@ h3 {
             width: 40px;
         }
     }
+    td.info {
+        background-color: rgba(155, 63, 63, 0.7);
+    }
+    td.size {
+        background-color: rgba(94, 109, 67, 0.7);
+    }
+    td.data {
+        background-color: rgba(86, 140, 184, 0.7);
+    }
     td {
         vertical-align: middle;
         text-align: center;
+        
         &:nth-child(3) {
             display: none;
         }

@@ -1,6 +1,6 @@
 h1 {
     text-align: center;
-    width: 500px;
+    width: 100%;
     margin: 16px 8px;
     font-weight: inherit;
     font-size: inherit;
@@ -68,17 +68,24 @@ h1 {
 }
 .label-info {
     font-weight: 600;
-    width: 120px;
+    width: 160px;
 }
 .info-element {
     margin: 12px 24px;
     width: 40%;
 }
 .action {
-    width: 100%;
+    width: 450px;
+    margin: 4px auto;
     height: 60px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     
+}
+.zoomOut {
+    display: none;
+}
+thead .table-head {
+    background-color: red;
 }

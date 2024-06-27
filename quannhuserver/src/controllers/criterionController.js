@@ -1,63 +1,90 @@
-import connect from '../configs/model'
-import Criterion from '../configs/mongoDB/criterion'
-class criterionController {
-    async render(req, res, next) {
-        let connection
-        try {
-            const data = await Criterion.findOne({year: req.query.year})
-            const tableName = req.query.year
-            connection = await connect.listquantrang.getConnection();
-            const [tables] = (await connection.query("SHOW TABLES"))
-            const tableNames = tables.map(table => table['Tables_in_listquantrang'])
-            const [columns] = await connection.query(`DESCRIBE \`${tableName}\``);
-            const columnNames = columns.map(column => column.Field);
-            const [CCD] = await connection.query(`SELECT DISTINCT \`PH CCĐ\` FROM \`${tableName}\``);
-            const listCCD = CCD.map(item => item['PH CCĐ'])
-            
-            res.status(200).json({tableNames, columnNames, listCCD, data})
-        } catch (error) {
-            res.status(500).json({error: 'Internal Server Error'})
-        } finally {
-            if (connection) {
-                connection.release();
-            }
-        }
+import Criterion from "../configs/mongoDB/criterion";
+import Listquantrang from "../configs/mongoDB/listquantrang";
+import fieldDisplayMapping from "../configs/mapping";
 
+class criterionController {
+  async render(req, res, next) {
+    try {
+        const years = await Criterion.distinct("year");
+      const dataKeys = Object.keys(
+        Listquantrang.schema.paths.list.schema.tree.data
+      ).filter((item) => !item.includes("_"));
+      const dataHeaders = dataKeys.map((element) => {
+        return fieldDisplayMapping[element];
+      });
+      const listCCD = await Listquantrang.distinct("list.info.PHCDD")
+        .then((results) => {
+          return results;
+        })
+        .catch((err) => {
+          console.error("Lỗi khi truy vấn dữ liệu:", err);
+        });
+      res.status(200).json({ listCCD, dataHeaders, dataKeys, years });
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+      console.log(error);
     }
-    async create(req, res, next) {
-        try {
-            // Lấy dữ liệu từ body request và query string
-            const { year } = req.query;
-            const data = req.body;
-    
-            // Tạo mới bản ghi trong cơ sở dữ liệu
-            const newRecord = new Criterion({
-                year,
-                data,
-            });
-    
-            // Lưu vào cơ sở dữ liệu
-            await newRecord.save();
-    
-            res.status(201).json({ message: 'Record created successfully' });
-        } catch (error) {
-            console.error('Error creating record:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
+  }
+  async create(req, res, next) {
+    try {
+      // Lấy dữ liệu từ body request và query string
+      const { year } = req.query;
+      const data = req.body;
+      //Kiểm tra xem year đã tồn tại trong db hay chưa
+      const existingRecord = await Criterion.findOne({ year });
+      if (existingRecord) {
+        return res
+          .status(400)
+          .json({ error: "Năm đã tồn tại, bạn vui lòng kiểm tra lại!" });
+      }
+      // Tạo mới bản ghi trong cơ sở dữ liệu
+      const newRecord = new Criterion({
+        year,
+        data,
+      });
+
+      // Lưu vào cơ sở dữ liệu
+      await newRecord.save();
+
+      res
+        .status(200)
+        .json({ message: "Tạo bảng tiêu chuẩn quân trang thành công" });
+    } catch (error) {
+      console.error("Error creating record:", error);
+      res.status(500).json({ error: "Lỗi server" });
     }
-    async update(req, res, next) {
-        try {
-            // Lấy dữ liệu từ body request và query string
-            const { year } = req.query;
-            const data = req.body;
-            // Update dữ liệu
-            Criterion.findOneAndUpdate({ year: year }, { $set: { data: data } }, { new: true })
-            .then(() => res.status(201).json({ message: 'Record updated successfully' }))
-            .catch(() => res.status(500).json({ error: 'Internal Server Error' }))
-        } catch (error) {
-            console.error('Error creating record:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
+  }
+  
+  async renderUpdate(req, res, next) { 
+    try {
+      const { year } = req.query;
+      const data = await Criterion.findOne({ year})
+      res.status(200).json(data);
+  }
+  catch (error) {
+    console.error("Error creating record:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+  }
+  async update(req, res, next) {
+    try {
+      // Lấy dữ liệu từ body request và query string
+      const { year } = req.query;
+      const data = req.body;
+      // Update dữ liệu
+      Criterion.findOneAndUpdate(
+        { year: year },
+        { $set: { data: data } },
+        { new: true }
+      )
+        .then(() =>
+          res.status(200).json({ message: "Record updated successfully" })
+        )
+        .catch(() => res.status(500).json({ error: "Internal Server Error" }));
+    } catch (error) {
+      console.error("Error creating record:", error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
+  }
 }
-module.exports = new criterionController()
+module.exports = new criterionController();

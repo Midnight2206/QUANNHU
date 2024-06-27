@@ -6,38 +6,26 @@ const listQuantrangController = require('../controllers/listQuantrangController'
 const individualController = require('../controllers/individualController')
 const criterionController = require('../controllers/criterionController')
 const dispensationController = require('../controllers/dispensationController')
+const increaseController = require('../controllers/increaseController')
+const decreaseController = require('../controllers/decreaseController')
 
 router.get('/individual', individualController.render)
-router.patch('/individual/:id', async (req, res) => {
-  try {
-    const id = req.params.id
-    const year = req.query.year
-    const data = req.body
-    individualController.update(req, res, id, year, data)
-  } catch (error) {
-    res.json(error)
-  }
-})
+router.patch('/individual/:id', individualController.update) 
 router.get('/criterion', criterionController.render)
+router.get('/criterion/update', criterionController.renderUpdate)
 router.post('/criterion', criterionController.create)
+router.post('/increase', increaseController.increase)
+router.get('/decrease', decreaseController.render)
+router.get('/decrease/list', decreaseController.list)
+router.post('/decrease/filter', decreaseController.filter)
+router.post('/decrease', decreaseController.decrease)
+router.get('/increase', increaseController.render)
 router.put('/criterion', criterionController.update)
 router.get('/dispensation', dispensationController.render)
-router.post('/add', listQuantrangController.add)
-router.get('/search', async (req, res) => {
-  try {
-    const year = req.query.year;
-    const searchQuery = req.query.q
+router.post('/import', listQuantrangController.import)
+router.patch('/add', listQuantrangController.add)
 
-    // Thực hiện xử lý yêu cầu với tham số year
-    const data = await listQuantrangController.search(req, res, searchQuery, year);
-
-    // Trả về kết quả cho client
-    res.json(data);
-  } catch (error) {
-    console.error('Error handling request:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-})
+router.get('/search', listQuantrangController.search )
 router.get('/', listQuantrangController.render);
 
 

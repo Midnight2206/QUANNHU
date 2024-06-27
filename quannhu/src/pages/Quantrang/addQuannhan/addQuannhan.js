@@ -1,33 +1,47 @@
 import classNames from 'classnames/bind';
 import { Table } from 'react-bootstrap';
 import axios from 'axios';
+import * as XLSX from 'xlsx';
+import { useDropzone } from 'react-dropzone';
 import {  useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import style from './addQuannhan.module.scss'
+import httpRequest from '~/utils/httpRequest';
 const cx = classNames.bind(style);
-const head = ['Họ và tên', 'Đơn vị', 'Giới tính', 'PH CCĐ', 'Quân phục', 'Giày', 'Mũ', 'Chiếu', 'QT niên hạn'];
+
 
 function AddQuanNhan() {
+    const [head, setHead] = useState([])
     const location = useLocation()
     const params = new URLSearchParams(location.search);
     const year = params.get('year')
     const [errorData, setErrorData] = useState([]);
-    const [rowIndex, setRowIndex] = useState(['a']);
     const [formData, setFormData] = useState({});
-    const handleAddRow = (e) => {
-        e.preventDefault();
-        setRowIndex((prev) => [...prev, 'a']);
-    };
-    const handleRemoveRow = (e) => {
-        setRowIndex((prev) => {
-            if (prev.length > 1) {
-                return prev.slice(0, -1);
-            } else {
-                return prev;
+    const onDrop = (acceptedFiles) => {
+        const file = acceptedFiles[0];
+    
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheetName = workbook.SheetNames[0];
+                const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+    
+                setFormData([...sheetData]);
+            } catch (error) {
+                console.error('Error reading the Excel file:', error);
             }
-        });
+        };
+    
+        reader.readAsArrayBuffer(file);
     };
+    const { getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        accept: '.xlsx, .xls',
+    });
+    
     const handleChange = (e, rowIndex) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -38,6 +52,19 @@ function AddQuanNhan() {
             },
         }));
     };
+    const getData = async () => {
+        try {
+            const res = await httpRequest.get(`quantrang/add?year=${year}`)
+            setHead(res.data)
+            console.log(res)
+    
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect (() => {
+        getData()   
+    }, [year])
     useEffect(() => {
         if (errorData.length > 0) {
             setFormData(() =>
@@ -56,14 +83,21 @@ function AddQuanNhan() {
         } catch (err) {
             if (err.response && err.response.status === 400) {
                 setErrorData(err.response.data.failData);
+                setFormData(err.response.data.failData)
             } else {
                 alert('Có lỗi xảy ra. Vui lòng thử lại.');
             }
         }
     };
-    
+    console.log(formData)
         return (
             <>
+                <div className={cx('header')}>
+                    <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <p className={cx('import')} >Thả file Excel vào đây hoặc click để chọn</p>
+                </div>
+                </div>
                 <form onSubmit={handleSubmit}>
                     <Table responsive bordered>
                         <thead>
@@ -75,16 +109,7 @@ function AddQuanNhan() {
                             </tr>
                         </thead>
                         <tbody>
-                            {errorData.length === 0 && Array.from(rowIndex).map((r, i) => (
-                                <tr key={i}>
-                                    <td></td>
-                                    {Array.from(head).map((h, index) => (
-                                        <td key={index}>
-                                            <input name={h} onChange={(e) => handleChange(e, i)} />
-                                        </td>
-                                    ))}
-                                </tr>
-                            ))}
+                            
                             {errorData.length >0 && errorData.map((data, i) => (
                                 <tr key={i}>
                                     <td></td>
@@ -101,8 +126,6 @@ function AddQuanNhan() {
                     </Table>
                     <button type="submit">Thêm</button>
                 </form>
-                <button onClick={handleAddRow}>ADD</button>
-                <button onClick={handleRemoveRow}>REMOVE</button>
             </>
         );
     }

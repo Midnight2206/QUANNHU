@@ -1,0 +1,111 @@
+.create-equipment {
+    position: fixed; // Đảm bảo rằng nó cố định trên trang web
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999; // Đảm bảo nó hiển thị trên tất cả các phần tử khác
+    background-color: rgba(0, 0, 0, 0.5); // Một màu nền đục để tạo hiệu ứng overlay
+    display: flex; // Để căn giữa nội dung của nó
+    align-items: center; // Để căn giữa nội dung của nó
+    justify-content: center; // Để căn giữa nội dung của nó
+}
+.create-equipment-wrapper {
+    position: relative;
+    width: 35%;
+    min-height: 50%;
+    background-color: white;
+    .create-equipment-header {
+        position: relative;
+        display: flex;
+        align-items: center; /* căn giữa dọc */
+        justify-content: space-between; 
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .close-btn {
+            position: absolute;
+            background: none;
+            border: none;
+            cursor: pointer;
+            top: 0px;
+            right: 0px;
+            padding: 12px;
+            &:hover {
+                background-color: #db4437;
+            }
+        }
+    }
+}
+.create-equipment-body {
+    flex: 1;
+    .create-equipment-element {
+        display: flex;
+        align-items: center;
+        height: 30px;
+        margin: 6px 12px;
+        .create-equipment-lable {
+            width: 200px;
+        }
+        .create-equipmen-quantity-unit {
+            width: 40px;
+        }
+        .create-equipment-input {
+            border: 1px solid black;
+        }
+        .upDown {
+            display: flex;
+            flex-direction: column;
+            width: 30px;
+            height: 30px;
+            .btnUpDown {
+                display: flex;
+                align-items: center; /* Căn theo chiều dọc */
+                justify-content: center; /* Căn theo chiều ngang */
+                margin: 0;
+                padding: 0;
+                width: 30px;
+                height: 15px;
+                border: 1px solid black;
+                background-color: rgba(0, 0, 0, 0.15);
+                text-align: center;
+                vertical-align: middle;
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.25);
+                }
+                .btnIcon {
+                    background-color: transparent;
+                    font-size: 10px;
+                }
+            }
+            
+        }
+    }
+}
+.create-equipment-footer {
+    position: absolute;
+    bottom: 8px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-around;
+}
+.equipment-quantity {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.equipment-quantity-element {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+}
+
+.equipment-quantity-input {
+    border: 1px solid black;
+    width: 65px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
