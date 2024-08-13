@@ -9,6 +9,7 @@ import SharedMilitaryEquipment from "./sharedMilitaryEquipment"
 import DecreaseMilitaries from "./decreaseMilitaries/decreaseMilitaries.js";
 import DecreaseList from "./decreaseMilitaries/decreaseList.js";
 import Test from "./Test.js";
+import IncreaseList from "./increaseMilitaries/increaseList.js";
 
 const QuanT = {
     Quantrang,
@@ -21,6 +22,7 @@ const QuanT = {
     SharedMilitaryEquipment,
     DecreaseMilitaries,
     DecreaseList,
+    IncreaseList,
     Test
 }
 export default QuanT

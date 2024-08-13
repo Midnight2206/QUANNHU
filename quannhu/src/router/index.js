@@ -8,6 +8,7 @@ const publicRoutes = [
     {path: '/quantrang/criterion', conponent: QuanT.Criterion, layout: null},
     {path: '/quantrang/individual/:slug', conponent: QuanT.Individual, layout: null},
     {path: '/quantrang/dispensation/:id', conponent: QuanT.Dispensation, layout: null},
+    {path: '/quantrang/increase/list', conponent: QuanT.IncreaseList, layout: null},
     {path: '/quantrang/increase', conponent: QuanT.IncreaseMilitaries, layout: null},
     {path: '/quantrang/importlist', conponent: QuanT.importList, layout: null},
     {path: '/quantrang/shared', conponent: QuanT.SharedMilitaryEquipment, layout: null},

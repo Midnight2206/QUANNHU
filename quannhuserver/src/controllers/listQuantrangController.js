@@ -39,9 +39,8 @@ class listQuantrangController {
       const errData = [];
       const setID = (fullName, CDD, sex) => {
         const inputString = fullName + CDD;
-        const normalizedString = unorm.nfkd(inputString);
         const hash = crypto.createHash("sha256");
-        hash.update(normalizedString);
+        hash.update(inputString);
         let sexId;
         sex === "Nam" ? (sexId = 1) : (sexId = 0);
         return hash.digest("hex") + sexId;
@@ -115,9 +114,8 @@ class listQuantrangController {
       const errData = [];
       const setID = (fullName, CDD, sex) => {
         const inputString = fullName + CDD;
-        const normalizedString = unorm.nfkd(inputString);
         const hash = crypto.createHash("sha256");
-        hash.update(normalizedString);
+        hash.update(inputString);
         let sexId;
         sex === "Nam" ? (sexId = 1) : (sexId = 0);
         return hash.digest("hex") + sexId;

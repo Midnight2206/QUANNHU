@@ -25,6 +25,7 @@ const MENU_ITEMS = [
                 {
                     type: 'volatility',
                     title: 'Quân số giảm',
+                    to: '/quantrang/decrease/list',
                 },
             ],
         },
